@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 
+const productsController = require('./controllers/productsController');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -8,6 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (_request, response) => {
   response.send();
 });
+app.get('/products', productsController.getAll);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
