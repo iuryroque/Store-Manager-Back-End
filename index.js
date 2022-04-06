@@ -3,6 +3,8 @@ const express = require('express');
 
 const productsController = require('./controllers/productsController');
 const salesController = require('./controllers/salesController');
+const joi = require('./Schemas/validateId');
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
