@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (_request, response) => {
   response.send();
 });
+app.get('/products/:id', productsController.getById);
 app.get('/products', productsController.getAll);
 
 app.get('/sales', salesController.getAll);
