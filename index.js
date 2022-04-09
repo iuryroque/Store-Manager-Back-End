@@ -20,6 +20,9 @@ app.post('/products',
  validate.joiValidate(productsSchema), validate.checkProductExists, productsController.create);
 app.get('/products/:id', productsController.getById);
 app.get('/products', productsController.getAll);
+app.put('/products/:id',
+ validate.joiValidate(productsSchema), validate.checkIdExists, productsController.edit);
+app.delete('/products/:id', validate.checkIdExists, productsController.destroy);
 
 // app.post('/products', productsController.create);
 app.get('/sales/:id', salesController.getById);
