@@ -6,8 +6,13 @@ const productsModel = require('../models/productsModel');
   return productExists;
  };
 
+ const checkIdNotExists = async (id) => {
+  // Verifica se tem o id no banco
+  const idNotExists = await productsModel.getById(id);
+  return idNotExists;
  };
 
 module.exports = {
   checkProductExists,
+  checkIdNotExists,
 };
