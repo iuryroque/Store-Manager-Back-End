@@ -31,10 +31,16 @@ const edit = async (id, name, quantity) => {
   return product;
 };
 
+const destroy = async (id) => {
+  const [product] = await connection.execute('DELETE FROM products WHERE products.id = ?', [id]);
+  return product;
+};
+
 module.exports = {
   getAll,
   getById,
   getByName,
   create,
   edit,
+  destroy,
 };

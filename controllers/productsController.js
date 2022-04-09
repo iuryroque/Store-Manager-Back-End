@@ -41,9 +41,20 @@ const edit = async (req, res, next) => {
   }
 };
 
+const destroy = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await productsService.destroy(id);
+    return res.status(204).json();
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAll,
   getById,
   create,
   edit,
+  destroy,
 };

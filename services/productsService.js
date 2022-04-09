@@ -27,9 +27,15 @@ const edit = async (id, name, quantity) => {
   return product;
 };
 
+const destroy = async (id) => {
+  const product = await productsModel.destroy(id);
+  return product;
+};
+
 module.exports = {
   getAll,
   getById,
   create,
   edit,
+  destroy,
 };
