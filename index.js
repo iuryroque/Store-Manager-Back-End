@@ -25,9 +25,11 @@ app.put('/products/:id',
  validate.joiValidate(productsSchema), validate.checkIdExists, productsController.edit);
 app.delete('/products/:id', validate.checkIdExists, productsController.destroy);
 
-// app.post('/products', productsController.create);
+app.post('/sales', validate.joiValidate(salesSchema), salesController.create);
 app.get('/sales/:id', salesController.getById);
 app.get('/sales', salesController.getAll);
+app.put('/sales/:id',
+ validate.joiValidate(salesSchema), validate.checkIdExists, salesController.edit);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
