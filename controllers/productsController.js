@@ -30,8 +30,20 @@ const create = async (req, res, next) => {
   }
 };
 
+const edit = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name, quantity } = req.body;
+    await productsService.edit(id, name, quantity);
+    return res.status(200).json({ id, name, quantity });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAll,
   getById,
   create,
+  edit,
 };
