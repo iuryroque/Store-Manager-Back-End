@@ -22,7 +22,24 @@ const getById = async (id) => {
   return sale.map(serialize);
 };
 
+const createSaleNow = async () => {
+  const [saleId] = await
+    connection.execute('INSERT INTO sales (date) VALUES (now())');
+  return saleId;
+};
+
+const createProductSale = async (id, productId, quantity) => {
+  const [saleId] = await
+    connection.execute(
+      'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (? , ?, ?)',
+      [id, productId, quantity],
+    );
+  return saleId;
+};
+
 module.exports = {
   getAll,
   getById,
+  createSaleNow,
+  createProductSale,
 };
