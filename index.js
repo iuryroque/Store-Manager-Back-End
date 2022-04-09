@@ -6,7 +6,8 @@ const express = require('express');
 const productsController = require('./controllers/productsController');
 const salesController = require('./controllers/salesController');
 const validate = require('./middlewares/validate');
-// const joi = require('./Schemas/validateId');
+const productsSchema = require('./Schemas/productsSchema');
+const salesSchema = require('./Schemas/salesSchema');
 
 const app = express();
 app.use(express.json());
