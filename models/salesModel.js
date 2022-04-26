@@ -19,6 +19,7 @@ const getById = async (id) => {
     connection.execute(`SELECT s.date, product_id, quantity
       FROM sales s INNER JOIN sales_products sp
       ON s.id = sp.sale_id WHERE id = ? ORDER BY sale_id, product_id`, [id]);
+      console.log(sale);
   return sale.map(serialize);
 };
 
@@ -54,4 +55,6 @@ module.exports = {
   getById,
   createSaleNow,
   createProductSale,
+  edit,
+  destroy,
 };
