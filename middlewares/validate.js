@@ -54,8 +54,9 @@ const checkStock = async (req, res, next) => {
   const saleListIds = juntaId(saleList);
   const productList = await buscaEstoque(saleListIds);
   try {
-    saleList.forEach((sale, index) => {
+    saleListIds.forEach((sale, index) => {
       if (sale.quantity > productList[index].quantity) {
+        console.log(productList[index]);
         throw new Error('Such amount is not permitted to sell');
       }
     });
