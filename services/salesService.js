@@ -14,11 +14,10 @@ const getById = async (id) => {
 // Agradecimento ao Leandro Oliveira e ao Lucas Pinheiro ambos da t15b por a conversa sobre promisse e qual a melhor forma de fazer "map ou foreach...".
 const create = async (saleList) => {
   const { insertId } = await salesModel.createSaleNow();
-  const saleNewList = { id: insertId, itemsSold: [] };
+  const saleNewList = { id: insertId, itemsSold: saleList };
   await Promise.all(saleList.map(
     async ({ productId, quantity }) => {
       await salesModel.createProductSale(insertId, productId, quantity);
-      saleNewList.itemsSold.push({ productId, quantity });
     },
   ));
 
