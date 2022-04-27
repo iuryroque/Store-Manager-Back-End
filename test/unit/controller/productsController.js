@@ -38,29 +38,56 @@ describe('Verifica controller de produtos com a rota get', () => {
   });
 
   describe('getById', () => {
-    before(() => {
-      req.params = 1;
-      sinon.stub(productsService, 'getById').resolves(productsMock);
+    describe('quando houver sucesso', () => {
+      before(() => {
+        req.params = 1;
+        sinon.stub(productsService, 'getById').resolves(productsMock);
 
-      res.status = sinon.stub().returns(res);
-      res.json = sinon.stub().returns();
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+      });
+
+      after(()=>{
+        productsService.getById.restore();
+
+        res.status.resetHistory()
+        res.json.resetHistory()
+      })
+
+      it('Testa o Id', async() => {
+        await productsController.getById(req, res, next);
+        expect(res.status.calledWith(200)).to.be.equal(true);
+      })
+
+      it('Testa o Id', async() => {
+        await productsController.getById(req, res, next);
+        expect(req.params === 1).to.be.equal(true);
+      })
+
     });
 
-    after(()=>{
-      productsService.getById.restore();
+    describe('Quando não for encontrado id', () => {
 
-      res.status.resetHistory()
-      res.json.resetHistory()
-    })
+      before(() => {
+        req.params = 99;
+        sinon.stub(productsService, 'getById').resolves();
 
-    it('Testa o Id', async() => {
-      await productsController.getById(req, res, next);
-      expect(res.status.calledWith(200)).to.be.equal(true);
-    })
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns({ message: 'Product not found' });
+      });
 
-    it('Testa o Id', async() => {
-      await productsController.getById(req, res, next);
-      expect(req.params === 1).to.be.equal(true);
+      after(()=>{
+        productsService.getById.restore();
+
+        res.status.resetHistory()
+        res.json.resetHistory()
+      })
+
+      it('Retorna 404', async() => {
+        await productsController.getById(req, res, next);
+        expect(res.status.calledWith(404)).to.be.equal(true);
+      })
+
     })
   });
 });
