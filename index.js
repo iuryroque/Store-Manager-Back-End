@@ -28,9 +28,9 @@ app.delete('/products/:id', validate.checkIdExists, productsController.destroy);
 app.post('/sales', validate.joiValidate(salesSchema), validate.checkStock, salesController.create);
 app.get('/sales/:id', salesController.getById);
 app.get('/sales', salesController.getAll);
-app.put('/sales/:id',
- validate.joiValidate(salesSchema), validate.checkIdExists, salesController.edit);
-app.delete('/sales/:id', validate.checkIdExists, validate.checkStock, salesController.destroy);
+app.put('/sales/:id', validate.joiValidate(salesSchema),
+validate.checkIdExists, validate.checkStock, salesController.edit);
+app.delete('/sales/:id', validate.checkIdExists, salesController.destroy);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
